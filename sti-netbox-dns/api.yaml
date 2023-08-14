@@ -1,0 +1,143 @@
+app_version: 1.0.0
+name: Netbox DNS App
+description: Aplicativo para o gerenciamento do registro DNS no Netbox
+tags:
+  - DNS
+  - Netbox
+contact_info:
+  name: "@netsinfoo"
+  url: https://sti.ufrn.br
+  email: netsinfoo@gmail.com
+authentication:
+  required: true
+  parameters:
+    - name: server
+      description: "server do Netbox"
+      example: "10.0.0.2, netbox.ufrn.br"
+      required: true
+      schema:
+        type: string
+    - name: token
+      description: "User Token do usuario do Netbox"
+      example: "NDRwiUTbFunVtBWqJW3jClSiv29Y82oQ2FPBDu"
+      required: true
+      schema:
+        type: string
+
+actions:
+  - name: remover_zona
+    description: remover zona
+    parameters:
+      - name: chamado
+        description: numero do chamado
+        required: true
+        example: '123456'
+        schema:
+          type: string
+      - name: zona
+        description: Zona que será removida do servidor DNS
+        required: true
+        example: 'teste.com.br'
+        schema:
+          type: string
+    returns:
+      schema:
+        type: string
+
+  - name: adicionar_zona
+    description: adicionar zona 
+    parameters:
+      - name: chamado
+        description: "Numero do chamado"
+        example: "123456"
+        required: false
+        schema:
+        type: string
+      - name: zona
+        description: "Nome da zona"
+        example: "teste.com.br"
+        required: true
+        schema:
+        type: string
+      - name: nameservers
+        description: "nameservers"
+        example: "ns1.ufrn.br; ns2.ufrn.br"
+        required: false
+        schema:
+        type: string
+      - name: status
+        description: "status da zona"
+        example: "active"
+        options:
+          - active
+          - reserved
+          - deprecated
+          - parked
+        required: false
+        schema:
+        type: string
+      - name: descricao
+        description: "Descrição"
+        example: "ipsum lore"
+        required: false
+        schema:
+        type: string
+      - name: default_ttl
+        description: "valor ttl default"
+        example: 86400
+        required: false
+        schema:
+        type: integer
+      - name: soa_ttl
+        description: "soa ttl"
+        example: 86400
+        required: true
+        schema:
+        type: integer
+      - name: soa_mname
+        description: "id do nameserver primario"
+        example: 1
+        required: true
+        schema:
+        type: integer
+      - name: soa_rname
+        description: "email do administrador da zona"
+        example: "sti@ufrn.br"
+        required: true
+        schema:
+        type: string
+      - name: soa_serial
+        description: "registro serial"
+        example: "sti@ufrn.br"
+        required: true
+        schema:
+        type: string
+      - name: soa_refresh
+        description: "refresh"
+        example: 172800
+        required: true
+        schema:
+        type: integer
+      - name: soa_retry
+        description: "retry"
+        example: 7200
+        required: true
+        schema:
+        type: integer
+      - name: soa_expire
+        description: "expire"
+        example: 2592000
+        required: true
+        schema:
+        type: integer
+      - name: soa_minimum
+        description: "soa minimum"
+        example: 3600
+        required: true
+        schema:
+        type: integer
+    returns:
+      schema:
+        type: string
+
+large_image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9btSJVEYuIOASpThZERRy1CkWoEGqFVh1MLv0QmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6uKk6CIl/i8ptIjx4Lgf7+497t4B/mqRqWbLGKBqlpGMx4R0ZkUIvqINfehBF4YkZuqzopiA5/i6h4+vd1Ge5X3uz9GpZE0G+ATiGaYbFvE68dSmpXPeJw6zgqQQnxOPGnRB4keuyy6/cc477OeZYSOVnCMOEwv5JpabmBUMlXiSOKKoGuX70y4rnLc4q8Uyq9+TvzCU1ZaXuE5zEHEsYBEiBMgoYwNFWIjSqpFiIkn7MQ//gOMXySWTawOMHPMoQYXk+MH/4He3Zm5i3E0KxYDWF9v+GAaCu0CtYtvfx7ZdOwECz8CV1vCXqsD0J+mVhhY5Arq3gYvrhibvAZc7QP+TLhmSIwVo+nM54P2MvikD9N4CHatub/V9nD4AKeoqcQMcHAIjecpe83h3e3Nv/56p9/cDWjFynY8GsfIAAAAGYktHRAAAAAAAAPlDu38AAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfnBhYRGgsHvJZtAAAMbElEQVR42u2ce3QU1R3HP3d2srNJhgCJLqIGjI/6qK0glaQWraCn2pZjS6GgReVQUuqjWi2VronaoAS3Vq2tVlMSsFraohEtUGsVBdIiRBRQ8EUVX6ESFoE8ZpPdze7c/jETWEJ2sxt3Yan7PWf+2Jk7OzPf+3vd79w7kEUWWRzBEOn647p1gQIEk4FzgDygCcESaSobf/RVp8xUQtzV4WJgKnCqvWsr8Gdfpdp0SAisWx9wYPIN4HfAyT0OR4Ba4PbyMteujCJuXjgXmInkDqCgx+E24HYE830Vamf0ASXld2KRt6gX8gAcwI+BhXXrOp0ZZXqSWUju7oU87H13I/lZzwMpJbB2XaDAtrzCPsLGeIS4KYPcthT4JRCvU51Ald02PQQKK+adnGDzyXWNgUEZQJ4ArgPUBJqrwLXuOWGRLhc+J4m2xwDuDDDAvKiEkQhOQyUv5QQ+2hgQ9s0kipwEez3dyLG3ft13ygicVuaSQFMSp7QhaM8AAv3A3iTa7wE60uPCgiV2qZIINgM7Djd7vkq1y671EsVz9jlpIFAqG+06r69CeY8Q3FVe6gpnQBL5DjA5weabFCEeTlsWLi9zSuB24Jk+XOBHM0pdr2QAeVOABUBRAs3fAaY1VziMtA/l6tZ1OBHKzcDsHoVpgxDcnCHkXQos7IW8LXbBXxTV4asEzN1Zqe44ZGPh2nWdg4UQq4Ev76v14bLyMtcTGWJ5v++FvHq7JlSAwfa+vRLh21XpkLEKw0MpVMgMsbzeyFsOXOOrVHfbv3cm8n8KnyPYlrcwhuVNjyIvYSifI/IStbykENOFh1SHCyQ99DzEEgU2NseIBxlCVE897x27WK6KYXn9Jq9XAt3VYQfwDdmrnidnm1Drnhe+3VehHkl6Xm9Y/lnJi+XCfet5koXueV1Hkp5HqmJeXAt0V4cT1/OkuNld3fVQrFJoy8fm4C8cKx0i6mggiO6u7ipMOXWIs7D0vESqioZUWF4sF05Gz5sNIuYQ6OltDseJzfKkHMe+xxS+gKgCbkyD/R2dREm2nRB7UnXhnhdNRs8riCqSD0JQwtvGQcY5zN4OJ07BSZ6dWD4zlP3uK5PV845UpFSHVPbLOiJZPa97ZBFz67mjr/afYUsGB+h5KXZhsQTkbDvbJhKMH4r1AKfkSf3rJ5lVqsN2WYn8ZK/47bKPlbWpTyKMA65JsP0Bel5KCVQEG01JLdarx3hCwx4BN++sVGOqKtXrOguFEDdGx7xhR8m1dVc661Ptk8fMizxnSlkGjOyj6UF6XspcGKC5wiERiel58cg71GiucLQjmGaPOmKhVz0vpQQC+CrUXQg5EYEH2AB8AuwCtgFPC7jEV6k+lWmZwVehbhGCccAjQLTSHQYeETDOV6luORSSU3RhPQjr1aMKtEvBjl0VakIyfK3lwqs4UA+cUl7mqk8nke7q8JeA1VGDgT3ABekgj77Sua9SbQFajrAyRSRrKKkeC2eRJTBLYJbALIFZZAnMEpglMEtgFlkCswRmCcwSmEWWwCyBGYp0zg+UCe7LONStDyiY6AAmGDPLXOYht0AhxFlYMwb27QLG1a4NDshU4moaupS6xuAUTJYCK4GVCiytawxOqWnoUg4JgXUvB3IXNAZvBVYAQ3scvkYosqGuMfCljLO6xqBb1SKPg/wrMB4YZW/jQf5V1SKL6xoD7vRboGSmRN4WJzyMBJ6oawwMzSTLA/l7YCKxXwlMAh58dEOX6Hkglb1YDPINEppiJh4B+ZtU38NrHyinPPWBsiAsGQigClq/V2LOGFFivhsnVp8HPJjAvUgQl5eXaY+nKYnIqYmRByCvBL6TamsqcUvHwCYKdttzDwaqFJS45QLir6DKS7AjBcipC9eH6n842mmmIwsns+pRJf48xH4mL2uL+i2EsKwxRTg2Ypr5YK3zy9aB/emkNNaB7wBEwhHaW1oYWFSIEDE9I4z1LYLUBhGJQ0oKup9TSqSUtCXgwq4EL/GJguKPSaCueYYCc4AVRtBbb+/7KbDFCHpXxvpXXfNc3On3R3Lz8wkGOnnp7yv55lUT4xAo/pSKJNLp9+fUP/CXa4MdoUEOVQmZBW5lT/H536ZgSD6Kwt6Wvf6F1YvfunjCKO8Z55z9Ydveva6na+qvveSKby0YdFSRf1ld/eUtn7ZPPPq4wSVDhg1h5PlfxZWXFy+JLPphmdOMZ4E6MAY4Q9c8q42gdxcwutvnbbKKgeOBN4ygt13XPOLMse55ZiRyYvdlpJSEQyE62g0GDB6EQ91/KaO1ddvaf6x88pmHX3vXH/pVQM/1CKPTK3t0iDCC3j5HLrp2Sy7IM4HfAlsdFw37GlvWTnAMLUE9eSThQIf8aLPvpPkvLbsMc9k04SBPSkZserZ2G0KcAYwpPlMfO/3Wmfe1frp7gjSliJOt6505Sn0iQ7ndwL+AbwN/jB6C6ZrncuBq4GPgBF37xfTx151d9eoLb498quZxMfzUYkacX8qu/+6h8bnVCCEwWg0u/P54nC6NrZteb1pe+3zr9jf904UQP9M1zw+I8EVd89wETLMTSw0wHdiexLBxqxH0bnCfG+6SAcMfXLF4kKPYymni2MH/klt9BSiMAP5jjdCQWOvhOpveMPxGS+sNRccMiSDEpF68QgJPAtdfNSpHJjoWfgyo0TXPUvsPpK55BgE3AJONoLdJ1zxXjL50eM1Fky8dIYQQZZdcQP6AAXS0GwQ6uoJnjRn9z4FFhUNfeaHhhM1r1/tPGzXisT9WLZ3Q2WJ+1z7/XmCWEfL+Qtc8ZcBNWPMJ5xtB7/Z+B3mXborcXGQoaO9QIsAfsOY9ztqXCwTPIhkL/Klq0oPNzjyxYt6yyr+pOeplwLHdMQ/EImeOUt+TvL4IfBdretsNUT3yBazZVs/rmsc8/sz8wqOPKyqUUjqjs1O4K/Tsjm2tRy9+4C+XXz3neuX1NW9OeG/DpxMCbS8+D4yV+1eq/xuYrmseBcF8JM8AHwJLe4mxNwKnW8fFPUbwrq54mUSa5oH1DHIViOulRZgEhBHwGrblDwRODXVI788vmvu3+/9d9V1MkW/z7C+PinkJE2gEvaauee7BWpTSjZ3AW8CF9zdUXYC1cM9piwfdFC7f1PDynLbm8KNtzZ/mzfintlvXPEcBPqAZ0IWV9dqA4cBu+1rnWr1Nkb2/58hhNfC6fV4kntJjtuxUCYcRWi4y2GE/z68MXfPcB9xmx3mZr3nyjaDXb9+bT9c8y4Czy0e7zOiY3x85y7SDeLOueRYDvwYWGkHvR7rmaTh3YsnS7e+9P6rT7x+gOp2UnH4qrjwX72x8fcu2zdsWrHnyA0NYnzWZrWue9+zYVm6afKAobALu1DXPm3acm6lrnmG2a11tF+NzCtTKK9vC1ZGoDn2tjxg4Vtc8JwaW1Y5DceTnlF6IyHFFT24HKVYg5FXAVwAp4GJd80wB/mGXMVcA1cmEi4MmkzvVMYpdo2186OUXhGtAh68j0BooKs59aWfTi/+9/8W/DygcUnhN6+69A1z5eRxXcgIOVWXgUYNXLqt9ZtXmF5odwCZhWdNrwGnA/UbQ+2qXuQanOmYVMMTe7jaC3g1Odcx5wBoj6F3nVMe8DwyWimwPRdb0uZrIqZ4n7OcYCgwRJxzToY2dNEIZ6O6u6wKmf/djwXefWB+KrJFOdcxbtnWtFkK8hbVe5HS7FnzACHqf7W9R3UMYCJQB19oEqFgzPf+DtZqp11WP5WWulCyf6i+Kfx1RgiF5NXBvVGEcAGZpOaKmabbDTOeoZJ+eJ6SYJZGJrj1bDkw/3OS554XdSGJJUlYZIviJr0L1pfK6Sj/0vJ6WNz0TLC8Oefv1PMmDw+dGRNoItPQ87iD+V8y6sRm47nCTBxAKye/HIe8AEjuFnJxGC0xGz0NFHH41x10dVqSVPRPU85jqvtNU0uXCyeh5RcjU63n9gM7B717i6nkoZn76YmAWn4nAZD7CtcfeDvMTKAbJfcTsE0zFnx4Chfhz4iKnWCUEvsPNn+8WxRTWNx4SeWkvgUW+2xQzLQSWl2pNWB8PC/Vx3ttCyLkzSl0ZMdPAmSPqbblJ9kFefZ4p6tPpwgDz7VIm1pq4TcCUGaWuHZkSh5pmO0wEP4lD4j4978PbUvvNm3hDudKooVyOFe/EcwIenlGmGWQghs+NCLvOm3qAnidYlBcR9akmj75qp5pGQ+SInDwpUYGO8jKtiyMA7jtNZV+poih+3y2KSRZZ/F/if4OzpLP4V34tAAAAAElFTkSuQmCC
